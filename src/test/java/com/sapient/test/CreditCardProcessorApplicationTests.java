@@ -9,5 +9,21 @@ class CreditCardProcessorApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	
+	void getAllCardsTest() {
+		
+	}
+	
+	void addValidCard() {
+		
+	}
+	
+	void addInvalidCardNumber() {
+		
+	}
+	
+	void addInvalidCardHolderName() {
+		
+	}
 
 }

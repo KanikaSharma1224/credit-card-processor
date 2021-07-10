@@ -7,6 +7,8 @@ public class Luhn10Validator implements ConstraintValidator<ValidLuhn10, String>
 
 	@Override
 	public boolean isValid(String cardNo, ConstraintValidatorContext context) {
+		
+		System.out.println("Inside validator ");
 		int cardLength = cardNo.length();
 		 
 	    int cardSum = 0;
