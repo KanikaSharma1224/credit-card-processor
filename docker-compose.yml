@@ -1,0 +1,16 @@
+version: '1'
+services:
+    credit-processor:
+        image: kanikatest/credit-processor:1.0.0
+        container_name: credit-processor
+        build:
+            context: docker-credit-processor
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        networks:
+            - spring-cloud-network
+            
+networks:
+    spring-cloud-network:
+        driver: bridge
