@@ -9,10 +9,21 @@ Two REST Endpoints are implemented
 
 ## mvn clean install to build the project.
 
-# GET /api/v1/cards  
+Two users are already added in the system to perform login.
+   Kanika - Kanika - USER
+   Admin  - Admin  - ADMIN
+
+# POST /api/v1/login
+
+{
+  "userName":"Kanika",
+  "password":"Kanika"
+}
+
+# GET /api/v1/cards  -H "Authorization: Bearer token"
       to get list of all cards
       
-# POST /api/v1/cards 
+# POST /api/v1/cards -H "Authorization: Bearer token"
 
 {
   "cardNumber":"4532837128802893",
