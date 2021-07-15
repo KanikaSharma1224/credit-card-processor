@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sapient.test.error.LoginRequiredException;
 import com.sapient.test.model.CreditCardDetails;
+import com.sapient.test.oauth.JwtRequestFilter;
 import com.sapient.test.service.CreditCardService;
+import com.sapient.test.service.UsersService;
 
 @RestController
 @RequestMapping(value = "/api/v1")
@@ -26,9 +30,14 @@ public class CreditCardProcessorController {
 	
 	@Autowired
 	CreditCardService service;
+	
+	@Autowired UsersService uService;
 
 	@PostMapping("/cards")
 	public ResponseEntity<CreditCardDetails> addCard(@RequestBody @Valid CreditCardDetails details) {
+		// Only Admin has the right to add new cards
+		if(!uService.isAdminUser(ThreadContext.get(JwtRequestFilter.USERID_TOKEN))) 
+			throw new LoginRequiredException();
 		logger.debug("Inside Add card");
 		details.setBalance(0.0);
 		CreditCardDetails crd = service.save(details);

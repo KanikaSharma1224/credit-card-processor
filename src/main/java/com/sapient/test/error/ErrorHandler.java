@@ -50,5 +50,14 @@ public class ErrorHandler {
 		api.setErrors(errors);
 		return new ResponseEntity<ErrorHandler.ApiError>(api,HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(LoginRequiredException.class)
+	public ResponseEntity<ApiError> handleLoginRequired(LoginRequiredException ex) {
+		Map<String, String> errors = new HashMap<>();
+		errors.put("username/password/access token", "Either the credentials provided are invalid or the access token is invalid or has expired or missing privileges for the operation");
+		ApiError api=new ApiError();
+		api.setErrors(errors);
+		return new ResponseEntity<ErrorHandler.ApiError>(api,HttpStatus.UNAUTHORIZED);
+	}
 
 }
